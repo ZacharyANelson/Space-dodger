@@ -1,13 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Ship : MonoBehaviour
 {
  
     public float speed = 2f;
 
-
     public float force = 300f;
+
+    public float speedup = 100f;
+
+    public GameObject ship;
+
+    public GameObject completelevel;
+
+    public Collider2D groundcollider;
+
+    
+
+    
+
 
     // Use this for initialization
     void Start()
@@ -23,8 +36,24 @@ public class Ship : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * force);
         if (Input.GetKeyDown(KeyCode.D))
-            speed = 10f;
-        else
-            speed = 2f;
+            GetComponent<Rigidbody2D>().AddForce(Vector2.right * speedup);
+
+        if (GetComponent<Rigidbody2D>().IsTouching(groundcollider))
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
+        if (GetComponent<Rigidbody2D>().position.x >= 47f)
+        {
+            completelevel.SetActive(true);
+        }
+
+        
+        
+     
+
+        
+
+       
     }
 }
